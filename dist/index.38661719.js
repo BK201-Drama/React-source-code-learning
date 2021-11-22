@@ -474,9 +474,9 @@ function _interopRequireDefault(obj) {
 // )
 // const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
-const element = _index2.default.createElement("div", {
+let element = _index2.default.createElement("div", {
     className: 'title'
-}, "hello ", _index2.default.createElement("span", null, "react")); // console.log(element);
+}, "hello"); // console.log(element);
 _index4.default.render(element, document.querySelector('#root')); // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {

@@ -9,9 +9,9 @@ import ReactDOM from './react-dom/index'
 
 // ReactDOM.render(ele, document.querySelector('#root'))
 
-const element = (
+let element = (
   <div className='title'>
-      hello <span>react</span>
+      hello
   </div>
 )
 // console.log(element);
