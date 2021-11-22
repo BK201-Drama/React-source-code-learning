@@ -4,9 +4,9 @@ const ReactDOM = {
 
 function render (vnode, container) {
   if (vnode === undefined) return
-  if (vnode === 'string') {
-    container.createTextNode(vnode)
-    return container.createTextNode(vnode)
+  if (typeof vnode === 'string') {
+    const textNode = document.createTextNode(vnode)
+    return container.appendChild(textNode)
   }
 }
 

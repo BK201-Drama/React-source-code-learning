@@ -1,5 +1,5 @@
 let React = {
-  createElement,
+  createElement 
 }
 
 function createElement (tag, attrs, ...childrens) {

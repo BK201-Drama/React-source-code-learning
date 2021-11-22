@@ -1,5 +1,5 @@
 import React from './react/index'
-// import ReactDOM from './react-dom/index'
+import ReactDOM from './react-dom/index'
 
 // const ele = (
 //   <div className="attrs">123</div>
@@ -14,6 +14,8 @@ const element = (
       hello <span>react</span>
   </div>
 )
-console.log(element);
+// console.log(element);
+
+ReactDOM.render(element, document.querySelector('#root'))
 
 // console.log(ele)
