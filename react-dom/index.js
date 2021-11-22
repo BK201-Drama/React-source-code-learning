@@ -5,13 +5,22 @@ const ReactDOM = {
   }
 }
 
-function render (vnode, container) {
-  if (vnode === undefined) return
+function _render (vnode) {
+  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
   if (typeof vnode === 'string') {
-    const textNode = document.createTextNode(vnode)
-    // console.log(textNode)
-    return container.appendChild(textNode)
+    return document.createTextNode(vnode)
   }
+
+  // 判断是否为函数组件【根据tag来分析】
+  if (typeof vnode.tag === 'function') {
+    // 1.创建组件
+    const comp = createComponent(vnode.tag, vnode.attrs)
+    // 2.设置组件的属性
+    setComponentProps(comp, vnode.attrs)
+    // 3.组件渲染的节点对象返回
+    return comp.base
+  }
+
 
   const { tag, attrs, childrens } = vnode
   const dom = document.createElement(tag)
@@ -28,7 +37,16 @@ function render (vnode, container) {
       render(item, dom)
     }
   }
-  return container.appendChild(dom)
+  return dom
+}
+
+function render (vnode, container) {
+  return container.appendChild(_render(vnode))
+}
+
+// 创建自定义组件
+function createComponent (comp, props) {
+
 }
 
 // 设置属性【value为key对应的键值】
