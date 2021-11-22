@@ -1,4 +1,4 @@
-17607
+17601
 82C:\Users\Drama\source\react-source\jsx\node_modules\parcel-bundler\src\Resolver.js132819929698758241 0
 55C:\Users\Drama\source\react-source\jsx\node_modules\ret132819929663062352 1
 47C:\Users\Drama\source\react-source\jsx\index.js132820260183064949 0
@@ -35,7 +35,7 @@
 103C:\Users\Drama\source\react-source\jsx\node_modules\postcss-normalize-unicode\node_modules\browserslist132819929679298934 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\to-regex-range\README.md132819929662813012 0
 79C:\Users\Drama\source\react-source\jsx\node_modules\whatwg-mimetype\LICENSE.txt132819929662683359 0
-43C:\Users\Drama\source\react-source\jsx\dist132820260638449128 1
+43C:\Users\Drama\source\react-source\jsx\dist132820261594850445 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\es-to-primitive\Makefile132819929666523094 0
 100C:\Users\Drama\source\react-source\jsx\node_modules\caniuse-lite\data\features\permissions-policy.js132819929705879173 0
 87C:\Users\Drama\source\react-source\jsx\node_modules\babel-runtime\helpers\selfGlobal.js132819929687726395 0
@@ -4879,7 +4879,7 @@
 133C:\Users\Drama\source\react-source\jsx\node_modules\postcss-merge-rules\node_modules\postcss-selector-parser\dist\selectors\string.js132819929684126039 0
 99C:\Users\Drama\source\react-source\jsx\node_modules\cssstyle\lib\properties\webkitBorderEndColor.js132819929692254283 0
 66C:\Users\Drama\source\react-source\jsx\node_modules\lodash\pull.js132819929708591920 0
-54C:\Users\Drama\source\react-source\jsx\dist\index.html132820260638299529 0
+54C:\Users\Drama\source\react-source\jsx\dist\index.html132820261594760677 0
 68C:\Users\Drama\source\react-source\jsx\node_modules\stream-http\test132819929686739047 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\core-js\es6\parse-int.js132819929713678336 0
 76C:\Users\Drama\source\react-source\jsx\node_modules\stream-http\test\browser132819929685831459 1
@@ -14056,7 +14056,7 @@
 71C:\Users\Drama\source\react-source\jsx\node_modules\css-tree\lib\walker132819929694857344 1
 80C:\Users\Drama\source\react-source\jsx\node_modules\css-tree\lib\walker\index.js132819929694887252 0
 79C:\Users\Drama\source\react-source\jsx\node_modules\css-tree\lib\utils\names.js132819929695545485 0
-61C:\Users\Drama\source\react-source\jsx\dist\index.de344823.js132820260638299529 0
+61C:\Users\Drama\source\react-source\jsx\dist\index.de344823.js132820261594760677 0
 83C:\Users\Drama\source\react-source\jsx\node_modules\caniuse-lite\data\regions\LY.js132819929703655111 0
 76C:\Users\Drama\source\react-source\jsx\node_modules\css-tree\lib\syntax\node132819929697280851 1
 78C:\Users\Drama\source\react-source\jsx\node_modules\css-tree\lib\syntax\pseudo132819929696642556 1
@@ -17451,13 +17451,7 @@
 61C:\Users\Drama\source\react-source\jsx\node_modules\.bin\uuid132819929719642379 0
 65C:\Users\Drama\source\react-source\jsx\node_modules\.bin\uuid.cmd132819929719642379 0
 66C:\Users\Drama\source\react-source\jsx\node_modules\.bin\which.ps1132819929719652338 0
-61C:\Users\Drama\source\react-source\jsx\dist\index.38661719.js132820260199298015 0
-65C:\Users\Drama\source\react-source\jsx\dist\index.38661719.js.map132820260199452796 0
-61C:\Users\Drama\source\react-source\jsx\dist\index.d25ee831.js132819933343142110 0
-65C:\Users\Drama\source\react-source\jsx\dist\index.d25ee831.js.map132819933343201951 0
-65C:\Users\Drama\source\react-source\jsx\dist\index.de344823.js.map132820260638429183 0
-59C:\Users\Drama\source\react-source\jsx\dist\jsx.45ee5e70.js132819927180934796 0
-63C:\Users\Drama\source\react-source\jsx\dist\jsx.45ee5e70.js.map132819927180984659 0
+65C:\Users\Drama\source\react-source\jsx\dist\index.de344823.js.map132820261594840457 0
 48C:\Users\Drama\source\react-source\jsx\.cache\00132819871458012510 1
 48C:\Users\Drama\source\react-source\jsx\.cache\03132819871458042459 1
 48C:\Users\Drama\source\react-source\jsx\.cache\06132819871458112248 1

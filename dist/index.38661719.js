@@ -462,23 +462,23 @@ function hmrAcceptRun(bundle, id) {
 "use strict";
 var _index = require("./react/index");
 var _index2 = _interopRequireDefault(_index);
-var _index3 = require("./react-dom/index");
-var _index4 = _interopRequireDefault(_index3);
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
-const ele = _index2.default.createElement("div", {
-    className: "attrs"
-}, "123"); // const ele = 1
-// ReactDOM.render(ele, document.getElementById('root'))
+// import ReactDOM from './react-dom/index'
+// const ele = (
+//   <div className="attrs">123</div>
+// )
+// const ele = 1
+// ReactDOM.render(ele, document.querySelector('#root'))
 const element = _index2.default.createElement("div", {
     className: 'title'
 }, "hello ", _index2.default.createElement("span", null, "react"));
 console.log(element); // console.log(ele)
 
-},{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
+},{"./react/index":"77wkh"}],"77wkh":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -494,23 +494,6 @@ function createElement(tag, attrs, ...childrens) {
     };
 }
 exports.default = React;
-
-},{}],"egPJa":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-const ReactDOM = {
-    render
-};
-function render(vnode, container) {
-    if (vnode === undefined) return;
-    if (vnode === 'string') {
-        container.createTextNode(vnode);
-        return container.createTextNode(vnode);
-    }
-}
-exports.default = ReactDOM;
 
 },{}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
 
