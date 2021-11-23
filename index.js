@@ -26,8 +26,8 @@ class Home_ {
   }
 }
 
-console.log(<Home_/>)
-console.log(<Home />)
+// console.log(<Home_/>)
+// console.log(<Home />)
 
 // console.log(element)
 

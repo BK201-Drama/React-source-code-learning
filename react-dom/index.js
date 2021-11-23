@@ -16,6 +16,7 @@ function createComponent (comp, props) {
     inst = new Component(props)
     // 将构造函数赋值，函数组件原来的tag就是函数本身，因此用于构造函数十分切合
     inst.constructor = comp
+    // 每一个类组件都有一个render方法，对该render进行赋值给其他函数，并且是返回一个构造函数内部的jsx
     inst.render = function () {
       return this.constructor(props)
     }
@@ -23,21 +24,27 @@ function createComponent (comp, props) {
   return inst
 }
 
+// 这是为了给comp内部添加base对象而设置的函数
 function renderComponent (comp) {
+  // 定义组件内部的节点对象
   let base
 
+  // 拿到了元素
   const renderer = comp.render()
 
   console.log(renderer)
 
+  // renderer是元素，但还是需要一层_render()函数渲染
   base = _render(renderer)
-  // console.log(base)
+  console.log('================')
+  console.log(base)
   comp.base = base
 }
 
 function setComponentProps (comp, props) {
   // 设置组件的属性
   comp.props = props
+  // 渲染组件
   renderComponent(comp)
 }
 
@@ -47,7 +54,7 @@ function _render (vnode) {
     return document.createTextNode(vnode)
   }
 
-  // 判断是否为函数组件【根据tag来分析】
+  // 判断是否为函数组件【根据tag，也就是当前组件来分析】
   if (typeof vnode.tag === 'function') {
     console.log("函数组件")
     // 1.创建组件
