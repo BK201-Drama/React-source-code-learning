@@ -544,7 +544,7 @@ function renderComponent(comp) {
     // 定义组件内部的节点对象
     let base; // 拿到了元素
     const renderer = comp.render();
-    console.log(renderer); // renderer是元素，但还是需要一层_render()函数渲染
+    console.log(renderer); // renderer是元素，但还是需要一层_render()函数渲染，不然还是无法解析
     base = _render(renderer);
     console.log('================');
     console.log(base);
