@@ -500,12 +500,15 @@ class Home_ extends _index2.default.Component {
         console.log("组件加载完成");
     }
     click = ()=>{
+        this.setState({
+            num: 1
+        });
     };
     render() {
         return _index2.default.createElement("div", {
             className: "hello"
         }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
-            onClick: this.click
+            onClick: this.click.bind(this)
         }, "+"));
     }
 } // const ele = <Home_ name={"123123"}/>
@@ -550,7 +553,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-// import {}
+var _index = require("../react-dom/index");
 class Component {
     constructor(props = {
     }){
@@ -560,16 +563,18 @@ class Component {
     }
     setState(stateChange) {
         // 浅拷贝，将stateChange浅拷贝给this.state
-        Object.assign(this.state, stateChange);
+        Object.assign(this.state, stateChange); // 数据改变实时渲染
+        (0, _index.renderComponent)(this);
     }
 }
 exports.default = Component;
 
-},{}],"egPJa":[function(require,module,exports) {
+},{"../react-dom/index":"egPJa"}],"egPJa":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.renderComponent = renderComponent;
 var _component = require("../react/component");
 var _component2 = _interopRequireDefault(_component);
 function _interopRequireDefault(obj) {
@@ -600,8 +605,8 @@ function createComponent(comp, props) {
 function renderComponent(comp) {
     // 定义组件内部的节点对象
     let base; // 拿到了元素
-    const renderer = comp.render();
-    console.log(renderer); // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
+    const renderer = comp.render(); // console.log(renderer)
+    // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     base = _render(renderer);
     if (comp.base) {
         if (comp.componentWillUpdate) comp.componentWillUpdate();

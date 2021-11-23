@@ -27,14 +27,13 @@ function createComponent (comp, props) {
 }
 
 // 这是为了给comp内部添加base对象而设置的函数
-function renderComponent (comp) {
+export function renderComponent (comp) {
   // 定义组件内部的节点对象
   let base
 
   // 拿到了元素
   const renderer = comp.render()
-
-  console.log(renderer)
+  // console.log(renderer)
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
   base = _render(renderer)

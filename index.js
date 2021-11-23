@@ -47,14 +47,16 @@ class Home_ extends React.Component{
   }
 
   click = () => {
-    
+    this.setState({
+      num: 1
+    })
   }
 
   render () {
     return (
       <div className="hello">
         <span>123456--{this.state.num}</span>
-        <button onClick={this.click}>+</button>
+        <button onClick={this.click.bind(this)}>+</button>
       </div>
     )
   }
