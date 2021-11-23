@@ -53,7 +53,15 @@ function diffAttribute (dom, vnode) {
 
   // 比较
   // 如果原来的属性跟新属性对比不在新属性中，则将其移除【属性值undefined就行】
-  for (let key in newAttrs) {
-    // (key in oldAttrs) ? 
+  for (let key in oldAttrs) {
+    if (!(key in newAttrs)) {
+      setAttribute(dom, key, undefined)
+    }
+  }
+  // 如果旧的属性和新属性不同，就改变旧的
+  for (let key in oldAttrs) {
+    if (oldAttrs[key] !== newAttrs[key]) {
+      setAttribute(dom, key, newAttrs[key])
+    }
   }
 }

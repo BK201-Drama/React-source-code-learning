@@ -719,7 +719,9 @@ function diffAttribute(dom, vnode) {
     });
     console.log(oldAttrs); // 比较
     // 如果原来的属性跟新属性对比不在新属性中，则将其移除【属性值undefined就行】
-    for(let key in newAttrs);
+    for(let key in oldAttrs)if (!(key in newAttrs)) (0, _index.setAttribute)(dom, key, undefined);
+     // 如果旧的属性和新属性不同，就改变旧的
+    for(let key1 in oldAttrs)if (oldAttrs[key1] !== newAttrs[key1]) (0, _index.setAttribute)(dom, key1, newAttrs[key1]);
 }
 
 },{"./index":"egPJa"}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
