@@ -480,6 +480,9 @@ function Home() {
 class Home_ extends _index2.default.Component {
     constructor(props){
         super(props);
+        this.state = {
+            num: 0
+        };
     }
     componentWillMount() {
         console.log("组件开始加载");
@@ -496,23 +499,27 @@ class Home_ extends _index2.default.Component {
     componentDidMount() {
         console.log("组件加载完成");
     }
+    click = ()=>{
+    };
     render() {
         return _index2.default.createElement("div", {
             className: "hello"
-        }, _index2.default.createElement("span", null, "123456"));
+        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
+            onClick: this.click
+        }, "+"));
     }
-}
-const ele = _index2.default.createElement(Home_, {
-    name: "123123"
-}); // console.log(ele.tag)
-console.log(ele.tag); // console.log(<Home />)
- // console.log(element)
- // const ele = 1
- // ReactDOM.render(ele, document.querySelector('#root'))
- // let element = 'str'
- // console.log(element);
- // ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
- // console.log(ele)
+} // const ele = <Home_ name={"123123"}/>
+// console.log(ele.tag)
+// console.log(ele.tag)
+// console.log(<Home />)
+// console.log(element)
+// const ele = 1
+// ReactDOM.render(ele, document.querySelector('#root'))
+// let element = 'str'
+// console.log(element);
+_index4.default.render(_index2.default.createElement(Home_, {
+    name: 'act'
+}), document.getElementById('root')); // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
 "use strict";
@@ -543,12 +550,17 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+// import {}
 class Component {
     constructor(props = {
     }){
         this.props = props;
         this.state = {
         };
+    }
+    setState(stateChange) {
+        // 浅拷贝，将stateChange浅拷贝给this.state
+        Object.assign(this.state, stateChange);
     }
 }
 exports.default = Component;
@@ -607,6 +619,7 @@ function setComponentProps(comp, props) {
 }
 function _render(vnode) {
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
+    if (typeof vnode === 'number') vnode = String(vnode);
     if (typeof vnode === 'string') return document.createTextNode(vnode);
      // 判断是否为函数组件或类组件【根据tag，也就是当前组件来分析】
     // 必须在render下才能将attrs变成props

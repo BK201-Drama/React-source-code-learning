@@ -69,6 +69,9 @@ function setComponentProps (comp, props) {
 
 function _render (vnode) {
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
+  if (typeof vnode === 'number') {
+    vnode = String(vnode)
+  }
   if (typeof vnode === 'string') {
     return document.createTextNode(vnode)
   }

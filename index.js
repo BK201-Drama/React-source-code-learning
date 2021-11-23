@@ -19,6 +19,9 @@ function Home () {
 class Home_ extends React.Component{
   constructor (props) {
     super (props)
+    this.state = {
+      num: 0
+    }
   }
 
   // 生命周期函数，我个人觉得我们需要在Component内部进行构建
@@ -43,18 +46,23 @@ class Home_ extends React.Component{
     console.log("组件加载完成")
   }
 
+  click = () => {
+    
+  }
+
   render () {
     return (
       <div className="hello">
-        <span>123456</span>
+        <span>123456--{this.state.num}</span>
+        <button onClick={this.click}>+</button>
       </div>
     )
   }
 }
 
-const ele = <Home_ name={"123123"}/>
+// const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
-console.log(ele.tag)
+// console.log(ele.tag)
 // console.log(<Home />)
 
 // console.log(element)
@@ -66,6 +74,6 @@ console.log(ele.tag)
 // let element = 'str'
 // console.log(element);
 
-// ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
+ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
 
 // console.log(ele)
