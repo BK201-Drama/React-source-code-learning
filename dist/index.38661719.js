@@ -478,22 +478,41 @@ function Home() {
     }, _index2.default.createElement("span", null, "123"));
 }
 class Home_ extends _index2.default.Component {
+    constructor(props){
+        super(props);
+    }
+    componentWillMount() {
+        console.log("组件开始加载");
+    }
+    componentWillReceiveProps(props1) {
+        console.log('props');
+    }
+    componentWillUpdate() {
+        console.log("组件将要更新");
+    }
+    componentDidUpdate() {
+        console.log("组件已经更新");
+    }
+    componentDidMount() {
+        console.log("组件加载完成");
+    }
     render() {
         return _index2.default.createElement("div", {
             className: "hello"
         }, _index2.default.createElement("span", null, "123456"));
     }
 }
-const ele = _index2.default.createElement(Home_, null); // console.log(ele.tag)
-console.log(ele.attrs); // console.log(<Home />)
-// console.log(element)
-// const ele = 1
-// ReactDOM.render(ele, document.querySelector('#root'))
-// let element = 'str'
-// console.log(element);
-_index4.default.render(_index2.default.createElement(Home_, {
-    name: 'act'
-}), document.getElementById('root')); // console.log(ele)
+const ele = _index2.default.createElement(Home_, {
+    name: "123123"
+}); // console.log(ele.tag)
+console.log(ele.tag); // console.log(<Home />)
+ // console.log(element)
+ // const ele = 1
+ // ReactDOM.render(ele, document.querySelector('#root'))
+ // let element = 'str'
+ // console.log(element);
+ // ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
+ // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
 "use strict";
@@ -572,12 +591,17 @@ function renderComponent(comp) {
     const renderer = comp.render();
     console.log(renderer); // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     base = _render(renderer);
-    console.log('================');
-    console.log(base);
+    if (comp.base) {
+        if (comp.componentWillUpdate) comp.componentWillUpdate();
+        if (comp.componentDidUpdate) comp.componentDidUpdate();
+    } else if (comp.componentDidMount) comp.componentDidMount();
     comp.base = base;
 }
 function setComponentProps(comp, props) {
-    // 设置组件的属性
+    if (!comp.base) {
+        if (comp.componentWillMount) comp.componentWillMount();
+        else if (comp.componentWillReceiveProps) comp.componentWillReceiveProps();
+    } // 设置组件的属性
     comp.props = props; // 渲染组件
     renderComponent(comp);
 }
@@ -585,10 +609,10 @@ function _render(vnode) {
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
     if (typeof vnode === 'string') return document.createTextNode(vnode);
      // 判断是否为函数组件或类组件【根据tag，也就是当前组件来分析】
-    // 
+    // 必须在render下才能将attrs变成props
     if (typeof vnode.tag === 'function') {
         // 1.创建组件
-        const comp = createComponent(vnode.tag, vnode.attrs); // 2.设置组件的属性
+        const comp = createComponent(vnode.tag, vnode.attrs); // 2.设置组件的属性，在这里，所有的属性都在这里变成了props
         setComponentProps(comp, vnode.attrs); // 3.组件渲染的节点对象返回
         return comp.base;
     }

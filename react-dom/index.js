@@ -38,12 +38,29 @@ function renderComponent (comp) {
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
   base = _render(renderer)
-  console.log('================')
-  console.log(base)
+
+  if (comp.base) {
+    if (comp.componentWillUpdate) {
+      comp.componentWillUpdate()
+    }
+    if (comp.componentDidUpdate) {
+      comp.componentDidUpdate()
+    }
+  } else if (comp.componentDidMount) {
+    comp.componentDidMount()
+  }
+
   comp.base = base
 }
 
 function setComponentProps (comp, props) {
+  if (!comp.base) {
+    if (comp.componentWillMount) {
+      comp.componentWillMount()
+    } else if (comp.componentWillReceiveProps) {
+      comp.componentWillReceiveProps()
+    }
+  }
   // 设置组件的属性
   comp.props = props
   // 渲染组件
@@ -57,11 +74,11 @@ function _render (vnode) {
   }
 
   // 判断是否为函数组件或类组件【根据tag，也就是当前组件来分析】
-  // 
+  // 必须在render下才能将attrs变成props
   if (typeof vnode.tag === 'function') {
     // 1.创建组件
     const comp = createComponent(vnode.tag, vnode.attrs)
-    // 2.设置组件的属性
+    // 2.设置组件的属性，在这里，所有的属性都在这里变成了props
     setComponentProps(comp, vnode.attrs)
     // 3.组件渲染的节点对象返回
     return comp.base
