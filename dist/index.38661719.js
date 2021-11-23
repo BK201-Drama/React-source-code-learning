@@ -477,20 +477,21 @@ function Home() {
         className: "hello"
     }, _index2.default.createElement("span", null, "123"));
 }
-class Home_ {
+class Home_ extends _index2.default.Component {
     render() {
         return _index2.default.createElement("div", {
             className: "hello"
-        }, _index2.default.createElement("span", null, "123"));
+        }, _index2.default.createElement("span", null, "123456"));
     }
-} // console.log(<Home_/>)
-// console.log(<Home />)
+}
+const ele = _index2.default.createElement(Home_, null); // console.log(ele.tag)
+console.log(ele.attrs); // console.log(<Home />)
 // console.log(element)
 // const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
 // let element = 'str'
 // console.log(element);
-_index4.default.render(_index2.default.createElement(Home, {
+_index4.default.render(_index2.default.createElement(Home_, {
     name: 'act'
 }), document.getElementById('root')); // console.log(ele)
 
@@ -499,9 +500,13 @@ _index4.default.render(_index2.default.createElement(Home, {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-let React = {
-    createElement
-};
+var _component = require("./component");
+var _component2 = _interopRequireDefault(_component);
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
 function createElement(tag, attrs, ...childrens) {
     return {
         tag,
@@ -509,7 +514,25 @@ function createElement(tag, attrs, ...childrens) {
         childrens
     };
 }
-exports.default = React;
+exports.default = {
+    createElement,
+    Component: _component2.default
+};
+
+},{"./component":"5T8KR"}],"5T8KR":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+class Component {
+    constructor(props = {
+    }){
+        this.props = props;
+        this.state = {
+        };
+    }
+}
+exports.default = Component;
 
 },{}],"egPJa":[function(require,module,exports) {
 "use strict";
@@ -529,8 +552,11 @@ const ReactDOM = {
 // vnode.tag, vnode.attrs
 function createComponent(comp, props) {
     let inst; // 原型链非空，还有render方法，那么一定是类组件
-    if (comp.prototype && comp.prototype.render) inst = new comp(props);
-    else {
+    if (comp.prototype && comp.prototype.render) {
+        console.log("props", props);
+        inst = new comp(props);
+        console.log("inst", inst);
+    } else {
         // 如果不是类组件，我们就也是用类组件创建
         inst = new _component2.default(props); // 将构造函数赋值，函数组件原来的tag就是函数本身，因此用于构造函数十分切合
         inst.constructor = comp; // 每一个类组件都有一个render方法，对该render进行赋值给其他函数，并且是返回一个构造函数内部的jsx
@@ -558,9 +584,10 @@ function setComponentProps(comp, props) {
 function _render(vnode) {
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
     if (typeof vnode === 'string') return document.createTextNode(vnode);
-     // 判断是否为函数组件【根据tag，也就是当前组件来分析】
+     // 判断是否为函数组件或类组件【根据tag，也就是当前组件来分析】
+    // 
     if (typeof vnode.tag === 'function') {
-        console.log("函数组件"); // 1.创建组件
+        // 1.创建组件
         const comp = createComponent(vnode.tag, vnode.attrs); // 2.设置组件的属性
         setComponentProps(comp, vnode.attrs); // 3.组件渲染的节点对象返回
         return comp.base;
@@ -598,21 +625,6 @@ function setAttribute(dom, key, value) {
 }
 exports.default = ReactDOM;
 
-},{"../react/component":"5T8KR"}],"5T8KR":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-class Component {
-    constructor(props = {
-    }){
-        this.props = props;
-        this.state = {
-        };
-    }
-}
-exports.default = Component;
-
-},{}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
+},{"../react/component":"5T8KR"}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
 
 //# sourceMappingURL=index.38661719.js.map

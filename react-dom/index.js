@@ -10,7 +10,9 @@ function createComponent (comp, props) {
   let inst
   // 原型链非空，还有render方法，那么一定是类组件
   if (comp.prototype && comp.prototype.render) {
+    console.log("props", props)
     inst = new comp(props)
+    console.log("inst" ,inst)
   } else {
     // 如果不是类组件，我们就也是用类组件创建
     inst = new Component(props)
@@ -54,9 +56,9 @@ function _render (vnode) {
     return document.createTextNode(vnode)
   }
 
-  // 判断是否为函数组件【根据tag，也就是当前组件来分析】
+  // 判断是否为函数组件或类组件【根据tag，也就是当前组件来分析】
+  // 
   if (typeof vnode.tag === 'function') {
-    console.log("函数组件")
     // 1.创建组件
     const comp = createComponent(vnode.tag, vnode.attrs)
     // 2.设置组件的属性

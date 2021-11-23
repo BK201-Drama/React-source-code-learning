@@ -16,17 +16,19 @@ function Home () {
   )
 }
 
-class Home_ {
+class Home_ extends React.Component{
   render () {
     return (
       <div className="hello">
-        <span>123</span>
+        <span>123456</span>
       </div>
     )
   }
 }
 
-// console.log(<Home_/>)
+const ele = <Home_ />
+// console.log(ele.tag)
+console.log(ele.attrs)
 // console.log(<Home />)
 
 // console.log(element)
@@ -38,6 +40,6 @@ class Home_ {
 // let element = 'str'
 // console.log(element);
 
-ReactDOM.render(<Home name={'act'}/>, document.getElementById('root'))
+ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
 
 // console.log(ele)
