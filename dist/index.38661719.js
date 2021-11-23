@@ -476,13 +476,23 @@ function Home() {
     return _index2.default.createElement("div", {
         className: "hello"
     }, _index2.default.createElement("span", null, "123"));
-} // console.log(<Home/>)
-// console.log(element)
+}
+class Home_ {
+    render() {
+        return _index2.default.createElement("div", {
+            className: "hello"
+        }, _index2.default.createElement("span", null, "123"));
+    }
+}
+console.log(_index2.default.createElement(Home_, null));
+console.log(_index2.default.createElement(Home, null)); // console.log(element)
 // const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
 // let element = 'str'
 // console.log(element);
-_index4.default.render(_index2.default.createElement(Home, null), document.getElementById('root')); // console.log(ele)
+_index4.default.render(_index2.default.createElement(Home, {
+    name: 'act'
+}), document.getElementById('root')); // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
 "use strict";
@@ -522,7 +532,7 @@ function createComponent(comp, props) {
     if (comp.prototype && comp.prototype.render) inst = new comp(props);
     else {
         // 如果不是类组件，我们就也是用类组件创建
-        inst = new _component2.default(props);
+        inst = new _component2.default(props); // 将构造函数赋值
         inst.constructor = comp;
         inst.render = function() {
             return this.constructor(props);
@@ -530,17 +540,27 @@ function createComponent(comp, props) {
     }
     return inst;
 }
+function renderComponent(comp) {
+    let base;
+    const renderer = comp.render();
+    console.log(renderer);
+    base = _render(renderer); // console.log(base)
+    comp.base = base;
+}
+function setComponentProps(comp, props) {
+    // 设置组件的属性
+    comp.props = props;
+    renderComponent(comp);
+}
 function _render(vnode) {
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
     if (typeof vnode === 'string') return document.createTextNode(vnode);
      // 判断是否为函数组件【根据tag来分析】
     if (typeof vnode.tag === 'function') {
         console.log("函数组件"); // 1.创建组件
-        const comp = createComponent(vnode.tag, vnode.attrs);
-        console.log(comp); // 2.设置组件的属性
-    // setComponentProps(comp, vnode.attrs)
-    // 3.组件渲染的节点对象返回
-    // return comp.base
+        const comp = createComponent(vnode.tag, vnode.attrs); // 2.设置组件的属性
+        setComponentProps(comp, vnode.attrs); // 3.组件渲染的节点对象返回
+        return comp.base;
     }
     const { tag , attrs , childrens  } = vnode;
     const dom = document.createElement(tag);

@@ -14,12 +14,31 @@ function createComponent (comp, props) {
   } else {
     // 如果不是类组件，我们就也是用类组件创建
     inst = new Component(props)
+    // 将构造函数赋值
     inst.constructor = comp
     inst.render = function () {
       return this.constructor(props)
     }
   }
   return inst
+}
+
+function renderComponent (comp) {
+  let base
+
+  const renderer = comp.render()
+
+  console.log(renderer)
+
+  base = _render(renderer)
+  // console.log(base)
+  comp.base = base
+}
+
+function setComponentProps (comp, props) {
+  // 设置组件的属性
+  comp.props = props
+  renderComponent(comp)
 }
 
 function _render (vnode) {
@@ -33,11 +52,10 @@ function _render (vnode) {
     console.log("函数组件")
     // 1.创建组件
     const comp = createComponent(vnode.tag, vnode.attrs)
-    console.log(comp)
     // 2.设置组件的属性
-    // setComponentProps(comp, vnode.attrs)
+    setComponentProps(comp, vnode.attrs)
     // 3.组件渲染的节点对象返回
-    // return comp.base
+    return comp.base
   }
 
   const { tag, attrs, childrens } = vnode

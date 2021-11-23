@@ -16,7 +16,18 @@ function Home () {
   )
 }
 
-// console.log(<Home/>)
+class Home_ {
+  render () {
+    return (
+      <div className="hello">
+        <span>123</span>
+      </div>
+    )
+  }
+}
+
+console.log(<Home_/>)
+console.log(<Home />)
 
 // console.log(element)
 
@@ -27,6 +38,6 @@ function Home () {
 // let element = 'str'
 // console.log(element);
 
-ReactDOM.render(<Home/>, document.getElementById('root'))
+ReactDOM.render(<Home name={'act'}/>, document.getElementById('root'))
 
 // console.log(ele)
