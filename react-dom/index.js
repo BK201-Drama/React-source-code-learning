@@ -1,8 +1,25 @@
+import Component from '../react/component'
+
 const ReactDOM = {
-  render: (vnode, container) => {
-    container.innerHTML = ''
-    return render (vnode, container)
+  render
+}
+
+// 创建自定义组件
+// vnode.tag, vnode.attrs
+function createComponent (comp, props) {
+  let inst
+  // 原型链非空，还有render方法，那么一定是类组件
+  if (comp.prototype && comp.prototype.render) {
+    inst = new comp(props)
+  } else {
+    // 如果不是类组件，我们就也是用类组件创建
+    inst = new Component(props)
+    inst.constructor = comp
+    inst.render = function () {
+      return this.constructor(props)
+    }
   }
+  return inst
 }
 
 function _render (vnode) {
@@ -13,14 +30,15 @@ function _render (vnode) {
 
   // 判断是否为函数组件【根据tag来分析】
   if (typeof vnode.tag === 'function') {
+    console.log("函数组件")
     // 1.创建组件
     const comp = createComponent(vnode.tag, vnode.attrs)
+    console.log(comp)
     // 2.设置组件的属性
-    setComponentProps(comp, vnode.attrs)
+    // setComponentProps(comp, vnode.attrs)
     // 3.组件渲染的节点对象返回
-    return comp.base
+    // return comp.base
   }
-
 
   const { tag, attrs, childrens } = vnode
   const dom = document.createElement(tag)
@@ -42,11 +60,6 @@ function _render (vnode) {
 
 function render (vnode, container) {
   return container.appendChild(_render(vnode))
-}
-
-// 创建自定义组件
-function createComponent (comp, props) {
-
 }
 
 // 设置属性【value为key对应的键值】

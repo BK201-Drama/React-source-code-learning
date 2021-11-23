@@ -472,11 +472,17 @@ function _interopRequireDefault(obj) {
 const element = _index2.default.createElement("div", {
     className: "attrs"
 }, "123", _index2.default.createElement("span", null, "456"));
-console.log(element); // const ele = 1
+function Home() {
+    return _index2.default.createElement("div", {
+        className: "hello"
+    }, _index2.default.createElement("span", null, "123"));
+} // console.log(<Home/>)
+// console.log(element)
+// const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
 // let element = 'str'
 // console.log(element);
-_index4.default.render(element, document.getElementById('root')); // console.log(ele)
+_index4.default.render(_index2.default.createElement(Home, null), document.getElementById('root')); // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
 "use strict";
@@ -500,21 +506,41 @@ exports.default = React;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var _component = require("../react/component");
+var _component2 = _interopRequireDefault(_component);
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
 const ReactDOM = {
-    render: (vnode, container)=>{
-        container.innerHTML = '';
-        return render(vnode, container);
+    render
+}; // 创建自定义组件
+// vnode.tag, vnode.attrs
+function createComponent(comp, props) {
+    let inst; // 原型链非空，还有render方法，那么一定是类组件
+    if (comp.prototype && comp.prototype.render) inst = new comp(props);
+    else {
+        // 如果不是类组件，我们就也是用类组件创建
+        inst = new _component2.default(props);
+        inst.constructor = comp;
+        inst.render = function() {
+            return this.constructor(props);
+        };
     }
-};
+    return inst;
+}
 function _render(vnode) {
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
     if (typeof vnode === 'string') return document.createTextNode(vnode);
      // 判断是否为函数组件【根据tag来分析】
     if (typeof vnode.tag === 'function') {
-        // 1.创建组件
-        const comp = createComponent(vnode.tag, vnode.attrs); // 2.设置组件的属性
-        setComponentProps(comp, vnode.attrs); // 3.组件渲染的节点对象返回
-        return comp.base;
+        console.log("函数组件"); // 1.创建组件
+        const comp = createComponent(vnode.tag, vnode.attrs);
+        console.log(comp); // 2.设置组件的属性
+    // setComponentProps(comp, vnode.attrs)
+    // 3.组件渲染的节点对象返回
+    // return comp.base
     }
     const { tag , attrs , childrens  } = vnode;
     const dom = document.createElement(tag);
@@ -527,8 +553,6 @@ function _render(vnode) {
 }
 function render(vnode, container) {
     return container.appendChild(_render(vnode));
-} // 创建自定义组件
-function createComponent(comp, props) {
 } // 设置属性【value为key对应的键值】
 function setAttribute(dom, key, value) {
     // 将属性名的className转换成class
@@ -550,6 +574,21 @@ function setAttribute(dom, key, value) {
     }
 }
 exports.default = ReactDOM;
+
+},{"../react/component":"5T8KR"}],"5T8KR":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+class Component {
+    constructor(props = {
+    }){
+        this.props = props;
+        this.state = {
+        };
+    }
+}
+exports.default = Component;
 
 },{}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
 

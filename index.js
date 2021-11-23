@@ -8,7 +8,17 @@ const element = (
   </div>
 )
 
-console.log(element)
+function Home () {
+  return (
+    <div className="hello">
+      <span>123</span>
+    </div>
+  )
+}
+
+// console.log(<Home/>)
+
+// console.log(element)
 
 // const ele = 1
 
@@ -17,6 +27,6 @@ console.log(element)
 // let element = 'str'
 // console.log(element);
 
-ReactDOM.render(element, document.getElementById('root'))
+ReactDOM.render(<Home/>, document.getElementById('root'))
 
 // console.log(ele)
