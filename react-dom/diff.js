@@ -34,6 +34,10 @@ function diffNode (dom, vnode) {
   if (!dom) {
     out = document.createElement(vnode.tag)
   }
+  // 比较子节点
+  if ((vnode.childends && vnode.childrends.length > 0) || (out.childNodes && out.childrends.length > 0)) {
+    diffChildren(out, vnode.childrends)
+  }
   diffAttribute(out, vnode)
   return out
 }
