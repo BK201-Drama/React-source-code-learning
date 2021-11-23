@@ -34,7 +34,7 @@ function renderComponent (comp) {
 
   console.log(renderer)
 
-  // renderer是元素，但还是需要一层_render()函数渲染，不然还是无法解析
+  // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
   base = _render(renderer)
   console.log('================')
   console.log(base)
