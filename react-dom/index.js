@@ -1,5 +1,7 @@
 import Component from '../react/component'
 
+import { diff } from './diff'
+
 const ReactDOM = {
   render
 }
@@ -10,9 +12,9 @@ function createComponent (comp, props) {
   let inst
   // 原型链非空，还有render方法，那么一定是类组件
   if (comp.prototype && comp.prototype.render) {
-    console.log("props", props)
+    // console.log("props", props)
     inst = new comp(props)
-    console.log("inst" ,inst)
+    // console.log("inst" ,inst)
   } else {
     // 如果不是类组件，我们就也是用类组件创建
     inst = new Component(props)
@@ -27,6 +29,7 @@ function createComponent (comp, props) {
 }
 
 // 这是为了给comp内部添加base对象而设置的函数
+// 组件更新可以设置生命周期
 export function renderComponent (comp) {
   // 定义组件内部的节点对象
   let base
@@ -49,6 +52,11 @@ export function renderComponent (comp) {
     comp.componentDidMount()
   }
 
+  if (comp.base && comp.base.parentNode) {
+    // replaceChild是只能用于子组件，因此我们必须使用parentNode
+    // 将base赋值给comp.base
+    comp.base.parentNode.replaceChild(base, comp.base)
+  }
   comp.base = base
 }
 
@@ -56,8 +64,9 @@ function setComponentProps (comp, props) {
   if (!comp.base) {
     if (comp.componentWillMount) {
       comp.componentWillMount()
-    } else if (comp.componentWillReceiveProps) {
-      comp.componentWillReceiveProps()
+    }
+    if (comp.componentWillReceiveProps) {
+      comp.componentWillReceiveProps(props)
     }
   }
   // 设置组件的属性
@@ -104,12 +113,13 @@ function _render (vnode) {
   return dom
 }
 
-function render (vnode, container) {
-  return container.appendChild(_render(vnode))
+function render (vnode, container, dom) {
+  return diff(dom, vnode, container)
+  // return container.appendChild(_render(vnode))
 }
 
 // 设置属性【value为key对应的键值】
-function setAttribute (dom, key, value) {
+export function setAttribute (dom, key, value) {
   // 将属性名的className转换成class
   if (key === 'className') {
     key = 'class'
