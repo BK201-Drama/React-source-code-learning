@@ -14,7 +14,7 @@ function createComponent (comp, props) {
   } else {
     // 如果不是类组件，我们就也是用类组件创建
     inst = new Component(props)
-    // 将构造函数赋值
+    // 将构造函数赋值，函数组件原来的tag就是函数本身，因此用于构造函数十分切合
     inst.constructor = comp
     inst.render = function () {
       return this.constructor(props)
