@@ -1,6 +1,6 @@
 import Component from '../react/component'
 
-import { diff } from './diff'
+import { diff, diffNode } from './diff'
 
 const ReactDOM = {
   render
@@ -8,7 +8,7 @@ const ReactDOM = {
 
 // 创建自定义组件
 // vnode.tag, vnode.attrs
-function createComponent (comp, props) {
+export function createComponent (comp, props) {
   let inst
   // 原型链非空，还有render方法，那么一定是类组件
   if (comp.prototype && comp.prototype.render) {
@@ -39,8 +39,8 @@ export function renderComponent (comp) {
   // console.log(renderer)
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
-  base = _render(renderer)
-
+  // base = _render(renderer)
+  base = diffNode(comp.base, renderer)
   if (comp.base) {
     if (comp.componentWillUpdate) {
       comp.componentWillUpdate()
@@ -52,15 +52,15 @@ export function renderComponent (comp) {
     comp.componentDidMount()
   }
 
-  if (comp.base && comp.base.parentNode) {
-    // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    // 将base赋值给comp.base
-    comp.base.parentNode.replaceChild(base, comp.base)
-  }
+  // if (comp.base && comp.base.parentNode) {
+  //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+  //   // 将base赋值给comp.base
+  //   comp.base.parentNode.replaceChild(base, comp.base)
+  // }
   comp.base = base
 }
 
-function setComponentProps (comp, props) {
+export function setComponentProps (comp, props) {
   if (!comp.base) {
     if (comp.componentWillMount) {
       comp.componentWillMount()

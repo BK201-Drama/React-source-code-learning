@@ -1,10 +1,12 @@
 import Component from './component'
 
 function createElement (tag, attrs, ...childrens) {
+  attrs = attrs || {}
   return {
     tag,
     attrs,
-    childrens
+    childrens,
+    key: attrs.key || null
   }
 }
 

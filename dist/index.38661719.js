@@ -539,10 +539,13 @@ function _interopRequireDefault(obj) {
     };
 }
 function createElement(tag, attrs, ...childrens) {
+    attrs = attrs || {
+    };
     return {
         tag,
         attrs,
-        childrens
+        childrens,
+        key: attrs.key || null
     };
 }
 exports.default = {
@@ -576,7 +579,9 @@ exports.default = Component;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.createComponent = createComponent;
 exports.renderComponent = renderComponent;
+exports.setComponentProps = setComponentProps;
 exports.setAttribute = setAttribute;
 var _component = require("../react/component");
 var _component2 = _interopRequireDefault(_component);
@@ -610,14 +615,17 @@ function renderComponent(comp) {
     let base; // 拿到了元素
     const renderer = comp.render(); // console.log(renderer)
     // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
-    base = _render(renderer);
+    // base = _render(renderer)
+    base = (0, _diff.diffNode)(comp.base, renderer);
     if (comp.base) {
         if (comp.componentWillUpdate) comp.componentWillUpdate();
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
-    if (comp.base && comp.base.parentNode) // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    // 将base赋值给comp.base
-    comp.base.parentNode.replaceChild(base, comp.base);
+     // if (comp.base && comp.base.parentNode) {
+    //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+    //   // 将base赋值给comp.base
+    //   comp.base.parentNode.replaceChild(base, comp.base)
+    // }
     comp.base = base;
 }
 function setComponentProps(comp, props) {
@@ -679,6 +687,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.diff = diff;
+exports.diffNode = diffNode;
 var _index = require("./index");
 function diff(dom, vnode, container) {
     // 对比节点的变化
@@ -698,12 +707,85 @@ function diffNode(dom, vnode) {
             if (dom && dom.parentNode) dom.parentNode.replaceNode(out, dom);
         }
         return out;
-    } // 非文本dom节点
+    }
+    if (typeof vnode.tag === 'function') diffComponent(out, vnode);
+     // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childends && vnode.childrends.length > 0 || out.childNodes && out.childrends.length > 0) diffChildren(out, vnode.childrends);
+    if (vnode.childrens && vnode.childrens.length > 0 || out.childNodes && out.childrens.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
+}
+function diffComponent(dom, vnode) {
+    let comp = dom; // 如果组件没有变化，只需要重新设置props即可
+    if (comp && comp.constructor === vnode.tag) {
+        // 重新设置props
+        (0, _index.setComponentProps)(comp, vnode.attrs); // 赋值
+        dom = comp.base;
+    } else {
+        // 组件类型发生变化
+        if (comp) {
+            // 移除旧的组件
+            unmountComponent(comp); // 释放
+            comp = null;
+        } // 创建新组件
+        comp = createComponent(vnode.tag, vnode.attrs); // 设置组件属性
+        (0, _index.setComponentProps)(vnode.attrs); // 给当前挂载base
+        dom = comp.base;
+    }
+    return dom;
+}
+function unmountComponent(comp) {
+    removeNode(comp.base);
+}
+function removeNode(dom) {
+    if (dom && dom.parentNode) dom.parentNode.removeNode(dom);
+}
+function diffChildren(dom, vchildren) {
+    const domChildren = dom.childNodes;
+    const children = [];
+    const keyed = {
+    }; // 将有key的节点和没有key的节点分开
+    if (domChildren.length > 0) [
+        ...domChildren
+    ].forEach((item)=>{
+        const key = item.key;
+        if (key) keyed[key] = item;
+        else children.push(item);
+    });
+    if (vchildren && vchildren.length > 0) {
+        let min = 0;
+        let childrenLen = children.length;
+        [
+            ...vchildren
+        ].forEach((vchild, i)=>{
+            const key = vchild.key;
+            let child;
+            if (key) // 如果有key，找到对应key的节点
+            {
+                if (keyed[key]) {
+                    child = keyed[key];
+                    keyed[key] = undefined;
+                }
+            } else if (childrenLen > min) for(let j = min; j < childrenLen; j++){
+                let c = children[j];
+                if (c) {
+                    child = c;
+                    children[j] = undefined;
+                    if (j === childrenLen - 1) childrenLen--;
+                    if (j === min) min++;
+                    break;
+                }
+            }
+            child = diffNode(child, vchild);
+            const f = domChildren[i];
+            if (child && child !== dom && child !== f) {
+                if (!f) dom.appendChild(child);
+                else if (child === f.nextSibling) removeNode(f);
+                else dom.insertBefore(child, f);
+            }
+        });
+    }
 }
 function diffAttribute(dom, vnode) {
     // 保存之前的dom所有的属性
