@@ -511,16 +511,18 @@ class Home_ extends _index2.default.Component {
     };
     render() {
         return _index2.default.createElement("div", {
-            className: "hello"
-        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
-            onClick: this.click.bind(this)
+            className: "rng"
+        }, _index2.default.createElement("span", {
+            "class": "fuck"
+        }, "123456--", this.state.num), _index2.default.createElement("button", {
+            onClick: this.click.bind(this),
+            "class": "U"
         }, "+"));
     }
 } // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
-// console.log(<Home />)
-// console.log(element)
+console.log(_index2.default.createElement(Home_, null)); // console.log(element)
 // const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
 // let element = 'str'
@@ -620,7 +622,9 @@ function renderComponent(comp) {
     if (comp.base && componentWillUpdate) comp.componentWillUpdate();
      // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     // base = _render(renderer)
-    base = (0, _diff.diffNode)(comp.base, renderer);
+    console.log("comp", comp);
+    console.log("renderer", renderer);
+    base = (0, _diff.diffNode)(comp.childNodes, renderer);
     if (comp.base) {
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
@@ -700,7 +704,7 @@ function diff(dom, vnode, container) {
 }
 function diffNode(dom, vnode) {
     let out = dom;
-    if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
+    if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '-';
     if (typeof vnode === 'number') vnode = String(vnode);
     if (typeof vnode === 'string') {
         if (dom && dom.nodeType === 3) {
@@ -711,11 +715,11 @@ function diffNode(dom, vnode) {
         }
         return out;
     }
-    if (typeof vnode.tag === 'function') diffComponent(out, vnode);
+    if (typeof vnode.tag === 'function') out = diffComponent(dom, vnode);
      // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childrens && vnode.childrens.length > 0 || out.childNodes && out.childNodes.length > 0) diffChildren(out, vnode.childrens);
+    if (vnode.childrens && vnode.childrens.length > 0 || out && out?.childNodes && out?.childNodes.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
 }
@@ -797,14 +801,14 @@ function diffAttribute(dom, vnode) {
     };
     const newAttrs = vnode.attrs; // dom是原有的节点对象，vnode是虚拟dom
     // 取出dom的属性
-    const domAttrs = dom.attributes;
-    console.log(domAttrs);
+    const domAttrs = dom.attributes // console.log(domAttrs);
+    ;
     [
         ...domAttrs
     ].forEach((item)=>{
         oldAttrs[item.name] = item.value;
-    });
-    console.log(oldAttrs); // 比较
+    }); // console.log(oldAttrs)
+    // 比较
     // 如果原来的属性跟新属性对比不在新属性中，则将其移除【属性值undefined就行】
     for(let key in oldAttrs)if (!(key in newAttrs)) (0, _index.setAttribute)(dom, key, undefined);
      // 如果旧的属性和新属性不同，就改变旧的

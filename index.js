@@ -54,9 +54,9 @@ class Home_ extends React.Component{
 
   render () {
     return (
-      <div className="hello">
-        <span>123456--{this.state.num}</span>
-        <button onClick={this.click.bind(this)}>+</button>
+      <div className="rng">
+        <span class="fuck">123456--{this.state.num}</span>
+        <button onClick={this.click.bind(this)} class="U">+</button>
       </div>
     )
   }
@@ -65,7 +65,7 @@ class Home_ extends React.Component{
 // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
-// console.log(<Home />)
+console.log(<Home_ />)
 
 // console.log(element)
 

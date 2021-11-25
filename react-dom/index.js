@@ -44,7 +44,9 @@ export function renderComponent (comp) {
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
   // base = _render(renderer)
-  base = diffNode(comp.base, renderer)
+  console.log("comp", comp)
+  console.log("renderer", renderer)
+  base = diffNode(comp.childNodes, renderer)
 
   if (comp.base) {
     if (comp.componentDidUpdate) {

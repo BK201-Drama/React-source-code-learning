@@ -12,7 +12,7 @@ export function diff (dom, vnode, container) {
 
 export function diffNode (dom, vnode) {
   let out = dom
-  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
+  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '-'
   if (typeof vnode === 'number') {
     vnode = String(vnode)
   }
@@ -30,7 +30,8 @@ export function diffNode (dom, vnode) {
     return out
   }
   if (typeof vnode.tag === 'function') {
-    diffComponent(out, vnode)
+
+    out = diffComponent(dom, vnode)
   }
 
   // 非文本dom节点
@@ -38,7 +39,7 @@ export function diffNode (dom, vnode) {
     out = document.createElement(vnode.tag)
   }
   // 比较子节点
-  if ((vnode.childrens && vnode.childrens.length > 0) || (out.childNodes && out.childNodes.length > 0)) {
+  if (vnode.childrens && vnode.childrens.length > 0 || (out && out?.childNodes && out?.childNodes.length > 0)) {
     diffChildren(out, vnode.childrens)
   }
 
@@ -152,11 +153,11 @@ function diffAttribute (dom, vnode) {
   // dom是原有的节点对象，vnode是虚拟dom
   // 取出dom的属性
   const domAttrs = dom.attributes
-  console.log(domAttrs);
-  [...domAttrs].forEach(item => {
+  // console.log(domAttrs);
+  ;[...domAttrs].forEach(item => {
     oldAttrs[item.name] = item.value
   })
-  console.log(oldAttrs)
+  // console.log(oldAttrs)
 
   // 比较
   // 如果原来的属性跟新属性对比不在新属性中，则将其移除【属性值undefined就行】
