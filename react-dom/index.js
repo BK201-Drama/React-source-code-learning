@@ -35,7 +35,7 @@ export function renderComponent (comp) {
   let base
 
   // 拿到了元素
-  const renderer = comp.render()
+  const renderer = comp.render
   // console.log(renderer)
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析

@@ -489,32 +489,30 @@ class Home_ extends _index2.default.Component {
             num: 0
         };
     }
-    componentWillMount() {
-        console.log("组件开始加载");
-    }
-    componentWillReceiveProps(props1) {
-        console.log('props-加载', props1);
-    }
-    componentWillUpdate() {
-        console.log("组件将要更新");
-    }
-    componentDidUpdate() {
-        console.log("组件已经更新");
-    }
-    componentDidMount() {
-        console.log("组件加载完成");
-    }
-    click = ()=>{
-        this.setState({
-            num: this.state.num + 1
-        });
-    };
+    // componentWillMount () {
+    //   console.log("组件开始加载")
+    // }
+    // componentWillReceiveProps (props) {
+    //   console.log('props-加载', props)
+    // }
+    // componentWillUpdate () {
+    //   console.log("组件将要更新")
+    // }
+    // componentDidUpdate () {
+    //   console.log("组件已经更新")
+    // }
+    // componentDidMount () {
+    //   console.log("组件加载完成")
+    // }
+    // click = () => {
+    //   this.setState({
+    //     num: this.state.num + 1
+    //   })
+    // }
     render() {
         return _index2.default.createElement("div", {
             className: "hello"
-        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
-            onClick: this.click.bind(this)
-        }, "+"));
+        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", null, "+"));
     }
 } // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
@@ -616,7 +614,7 @@ function createComponent(comp, props) {
 function renderComponent(comp) {
     // 定义组件内部的节点对象
     let base; // 拿到了元素
-    const renderer = comp.render(); // console.log(renderer)
+    const renderer = comp.render; // console.log(renderer)
     // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     // base = _render(renderer)
     base = (0, _diff.diffNode)(comp.base, renderer);
