@@ -52,11 +52,11 @@ export function renderComponent (comp) {
     comp.componentDidMount()
   }
 
-  // if (comp.base && comp.base.parentNode) {
-  //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
-  //   // 将base赋值给comp.base
-  //   comp.base.parentNode.replaceChild(base, comp.base)
-  // }
+  if (comp.base && comp.base.parentNode) {
+    // replaceChild是只能用于子组件，因此我们必须使用parentNode
+    // 将base赋值给comp.base
+    comp.base.parentNode.replaceChild(base, comp.base)
+  }
   comp.base = base
 }
 
@@ -114,8 +114,8 @@ function _render (vnode) {
 }
 
 function render (vnode, container, dom) {
-  // return diff(dom, vnode, container)
-  return container.appendChild(_render(vnode))
+  return diff(dom, vnode, container)
+  // return container.appendChild(_render(vnode))
 }
 
 // 设置属性【value为key对应的键值】

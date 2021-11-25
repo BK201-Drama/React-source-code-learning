@@ -38,7 +38,7 @@ export function diffNode (dom, vnode) {
     out = document.createElement(vnode.tag)
   }
   // 比较子节点
-  if ((vnode.childrens && vnode.childrens.length > 0) || (out.childNodes && out.childrens.length > 0)) {
+  if ((vnode.childrens && vnode.childNodes?.length > 0) || (out.childNodes && out.childNodes?.length > 0)) {
     diffChildren(out, vnode.childrens)
   }
   diffAttribute(out, vnode)

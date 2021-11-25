@@ -624,11 +624,9 @@ function renderComponent(comp) {
         if (comp.componentWillUpdate) comp.componentWillUpdate();
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
-     // if (comp.base && comp.base.parentNode) {
-    //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    //   // 将base赋值给comp.base
-    //   comp.base.parentNode.replaceChild(base, comp.base)
-    // }
+    if (comp.base && comp.base.parentNode) // replaceChild是只能用于子组件，因此我们必须使用parentNode
+    // 将base赋值给comp.base
+    comp.base.parentNode.replaceChild(base, comp.base);
     comp.base = base;
 }
 function setComponentProps(comp, props) {
@@ -661,8 +659,7 @@ function _render(vnode) {
     return dom;
 }
 function render(vnode, container, dom) {
-    // return diff(dom, vnode, container)
-    return container.appendChild(_render(vnode));
+    return (0, _diff.diff)(dom, vnode, container); // return container.appendChild(_render(vnode))
 } // 设置属性【value为key对应的键值】
 function setAttribute(dom, key, value) {
     // 将属性名的className转换成class
@@ -716,7 +713,7 @@ function diffNode(dom, vnode) {
      // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childrens && vnode.childrens.length > 0 || out.childNodes && out.childrens.length > 0) diffChildren(out, vnode.childrens);
+    if (vnode.childrens && vnode.childNodes?.length > 0 || out.childNodes && out.childNodes?.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
 }
