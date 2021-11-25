@@ -1,12 +1,12 @@
 import React from './react/index'
 import ReactDOM from './react-dom/index'
 
-const ele = (
-  <div className="attrs">
-    123
-    <span>456</span>
-  </div>
-)
+// const ele = (
+//   <div className="attrs">
+//     123
+//     <span>456</span>
+//   </div>
+// )
 
 // function Home () {
 //   return (
@@ -16,51 +16,51 @@ const ele = (
 //   )
 // }
 
-// class Home_ extends React.Component{
-//   constructor (props) {
-//     super (props)
-//     this.state = {
-//       num: 0
-//     }
-//   }
+class Home_ extends React.Component{
+  constructor (props) {
+    super (props)
+    this.state = {
+      num: 0
+    }
+  }
 
-//   // 生命周期函数，我个人觉得我们需要在Component内部进行构建
+  // 生命周期函数，我个人觉得我们需要在Component内部进行构建
 
-//   componentWillMount () {
-//     console.log("组件开始加载")
-//   }
+  componentWillMount () {
+    console.log("组件开始加载")
+  }
 
-//   componentWillReceiveProps (props) {
-//     console.log('props-加载', props)
-//   }
+  componentWillReceiveProps (props) {
+    console.log('props-加载', props)
+  }
 
-//   componentWillUpdate () {
-//     console.log("组件将要更新")
-//   }
+  componentWillUpdate () {
+    console.log("组件将要更新")
+  }
 
-//   componentDidUpdate () {
-//     console.log("组件已经更新")
-//   }
+  componentDidUpdate () {
+    console.log("组件已经更新")
+  }
 
-//   componentDidMount () {
-//     console.log("组件加载完成")
-//   }
+  componentDidMount () {
+    console.log("组件加载完成")
+  }
 
-//   click = () => {
-//     this.setState({
-//       num: this.state.num + 1
-//     })
-//   }
+  click = () => {
+    this.setState({
+      num: this.state.num + 1
+    })
+  }
 
-//   render () {
-//     return (
-//       <div className="hello">
-//         <span>123456--{this.state.num}</span>
-//         <button onClick={this.click.bind(this)}>+</button>
-//       </div>
-//     )
-//   }
-// }
+  render () {
+    return (
+      <div className="hello">
+        <span>123456--{this.state.num}</span>
+        <button onClick={this.click.bind(this)}>+</button>
+      </div>
+    )
+  }
+}
 
 // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
@@ -71,11 +71,11 @@ const ele = (
 
 // const ele = 1
 
-ReactDOM.render(ele, document.querySelector('#root'))
+// ReactDOM.render(ele, document.querySelector('#root'))
 
 // let element = 'str'
 // console.log(element);
 
-// ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
+ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
 
 // console.log(ele)

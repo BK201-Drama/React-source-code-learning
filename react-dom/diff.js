@@ -1,4 +1,4 @@
-import { setAttribute, setComponentProps } from "./index"
+import { setAttribute, setComponentProps, createComponent } from "./index"
 
 export function diff (dom, vnode, container) {
   // 对比节点的变化

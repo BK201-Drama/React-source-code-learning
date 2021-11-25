@@ -469,62 +469,65 @@ function _interopRequireDefault(obj) {
         default: obj
     };
 }
-const ele = _index2.default.createElement("div", {
-    className: "attrs"
-}, "123", _index2.default.createElement("span", null, "456")); // function Home () {
+// const ele = (
+//   <div className="attrs">
+//     123
+//     <span>456</span>
+//   </div>
+// )
+// function Home () {
 //   return (
 //     <div className="hello">
 //       <span>123</span>
 //     </div>
 //   )
 // }
-// class Home_ extends React.Component{
-//   constructor (props) {
-//     super (props)
-//     this.state = {
-//       num: 0
-//     }
-//   }
-//   // 生命周期函数，我个人觉得我们需要在Component内部进行构建
-//   componentWillMount () {
-//     console.log("组件开始加载")
-//   }
-//   componentWillReceiveProps (props) {
-//     console.log('props-加载', props)
-//   }
-//   componentWillUpdate () {
-//     console.log("组件将要更新")
-//   }
-//   componentDidUpdate () {
-//     console.log("组件已经更新")
-//   }
-//   componentDidMount () {
-//     console.log("组件加载完成")
-//   }
-//   click = () => {
-//     this.setState({
-//       num: this.state.num + 1
-//     })
-//   }
-//   render () {
-//     return (
-//       <div className="hello">
-//         <span>123456--{this.state.num}</span>
-//         <button onClick={this.click.bind(this)}>+</button>
-//       </div>
-//     )
-//   }
-// }
-// const ele = <Home_ name={"123123"}/>
+class Home_ extends _index2.default.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            num: 0
+        };
+    }
+    componentWillMount() {
+        console.log("组件开始加载");
+    }
+    componentWillReceiveProps(props1) {
+        console.log('props-加载', props1);
+    }
+    componentWillUpdate() {
+        console.log("组件将要更新");
+    }
+    componentDidUpdate() {
+        console.log("组件已经更新");
+    }
+    componentDidMount() {
+        console.log("组件加载完成");
+    }
+    click = ()=>{
+        this.setState({
+            num: this.state.num + 1
+        });
+    };
+    render() {
+        return _index2.default.createElement("div", {
+            className: "hello"
+        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
+            onClick: this.click.bind(this)
+        }, "+"));
+    }
+} // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
 // console.log(<Home />)
 // console.log(element)
 // const ele = 1
-_index4.default.render(ele, document.querySelector('#root')); // let element = 'str'
- // console.log(element);
- // ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
- // console.log(ele)
+// ReactDOM.render(ele, document.querySelector('#root'))
+// let element = 'str'
+// console.log(element);
+_index4.default.render(_index2.default.createElement(Home_, {
+    name: 'act'
+}), document.getElementById('root')); // console.log(ele)
 
 },{"./react/index":"77wkh","./react-dom/index":"egPJa"}],"77wkh":[function(require,module,exports) {
 "use strict";
@@ -729,7 +732,7 @@ function diffComponent(dom, vnode) {
             unmountComponent(comp); // 释放
             comp = null;
         } // 创建新组件
-        comp = createComponent(vnode.tag, vnode.attrs); // 设置组件属性
+        comp = (0, _index.createComponent)(vnode.tag, vnode.attrs); // 设置组件属性
         (0, _index.setComponentProps)(vnode.attrs); // 给当前挂载base
         dom = comp.base;
     }
