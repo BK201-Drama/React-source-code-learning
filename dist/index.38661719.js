@@ -661,7 +661,8 @@ function _render(vnode) {
     return dom;
 }
 function render(vnode, container, dom) {
-    return (0, _diff.diff)(dom, vnode, container); // return container.appendChild(_render(vnode))
+    // return diff(dom, vnode, container)
+    return container.appendChild(_render(vnode));
 } // 设置属性【value为key对应的键值】
 function setAttribute(dom, key, value) {
     // 将属性名的className转换成class

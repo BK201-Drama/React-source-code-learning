@@ -114,8 +114,8 @@ function _render (vnode) {
 }
 
 function render (vnode, container, dom) {
-  return diff(dom, vnode, container)
-  // return container.appendChild(_render(vnode))
+  // return diff(dom, vnode, container)
+  return container.appendChild(_render(vnode))
 }
 
 // 设置属性【value为key对应的键值】
