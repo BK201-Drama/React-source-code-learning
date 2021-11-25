@@ -24,7 +24,7 @@ export function diffNode (dom, vnode) {
     } else {
       out = document.createTextNode(vnode)
       if (dom && dom.parentNode) {
-        dom.parentNode.replaceChild(out, dom)
+        dom.parentNode.replaceNode(out, dom)
       }
     }
     return out
@@ -38,9 +38,10 @@ export function diffNode (dom, vnode) {
     out = document.createElement(vnode.tag)
   }
   // 比较子节点
-  if ((vnode.childrens && vnode.childNodes.length > 0) || (out.childNodes && out.childNodes.length > 0)) {
+  if ((vnode.childrens && vnode.childrens.length > 0) || (out.childNodes && out.childNodes.length > 0)) {
     diffChildren(out, vnode.childrens)
   }
+
   diffAttribute(out, vnode)
   return out
 }
@@ -65,7 +66,7 @@ function diffComponent (dom, vnode) {
     // 创建新组件
     comp = createComponent(vnode.tag, vnode.attrs)
     // 设置组件属性
-    setComponentProps(vnode.attrs)
+    setComponentProps(comp, vnode.attrs)
     // 给当前挂载base
     dom = comp.base
   }
@@ -98,7 +99,7 @@ function diffChildren (dom, vchildren) {
       }
     })
   }
-  if (vchildren &&vchildren.length > 0) {
+  if (vchildren && vchildren.length > 0) {
     let min = 0
     let childrenLen = children.length;
     [...vchildren].forEach((vchild, i) => {
@@ -147,7 +148,7 @@ function diffChildren (dom, vchildren) {
 function diffAttribute (dom, vnode) {
   // 保存之前的dom所有的属性
   const oldAttrs = {}
-  const newAttrs = {}
+  const newAttrs = vnode.attrs
   // dom是原有的节点对象，vnode是虚拟dom
   // 取出dom的属性
   const domAttrs = dom.attributes
@@ -165,7 +166,7 @@ function diffAttribute (dom, vnode) {
     }
   }
   // 如果旧的属性和新属性不同，就改变旧的
-  for (let key in oldAttrs) {
+  for (let key in newAttrs) {
     if (oldAttrs[key] !== newAttrs[key]) {
       setAttribute(dom, key, newAttrs[key])
     }

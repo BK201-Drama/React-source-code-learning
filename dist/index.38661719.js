@@ -475,48 +475,48 @@ function _interopRequireDefault(obj) {
 //     <span>456</span>
 //   </div>
 // )
-function Home_() {
-    return _index2.default.createElement("div", {
-        className: "hello"
-    }, _index2.default.createElement("span", null, "123"));
-} // class Home_ extends React.Component{
-//   constructor (props) {
-//     super (props)
-//     this.state = {
-//       num: 0
-//     }
-//   }
-//   // 生命周期函数，我个人觉得我们需要在Component内部进行构建
-//   componentWillMount () {
-//     console.log("组件开始加载")
-//   }
-//   componentWillReceiveProps (props) {
-//     console.log('props-加载', props)
-//   }
-//   componentWillUpdate () {
-//     console.log("组件将要更新")
-//   }
-//   componentDidUpdate () {
-//     console.log("组件已经更新")
-//   }
-//   componentDidMount () {
-//     console.log("组件加载完成")
-//   }
-//   click = () => {
-//     this.setState({
-//       num: this.state.num + 1
-//     })
-//   }
-//   render () {
-//     return (
-//       <div className="hello">
-//         <span>123456--{this.state.num}</span>
-//         <button onClick={this.click.bind(this)}>+</button>
-//       </div>
-//     )
-//   }
+// function Home_ () {
+//   return (
+//     <div className="hello">
+//       <span>123</span>
+//     </div>
+//   )
 // }
-// const ele = <Home_ name={"123123"}/>
+class Home_ extends _index2.default.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            num: 0
+        };
+    }
+    // componentWillMount () {
+    //   console.log("组件开始加载")
+    // }
+    // componentWillReceiveProps (props) {
+    //   console.log('props-加载', props)
+    // }
+    // componentWillUpdate () {
+    //   console.log("组件将要更新")
+    // }
+    // componentDidUpdate () {
+    //   console.log("组件已经更新")
+    // }
+    // componentDidMount () {
+    //   console.log("组件加载完成")
+    // }
+    click = ()=>{
+        this.setState({
+            num: this.state.num + 1
+        });
+    };
+    render() {
+        return _index2.default.createElement("div", {
+            className: "hello"
+        }, _index2.default.createElement("span", null, "123456--", this.state.num), _index2.default.createElement("button", {
+            onClick: this.click.bind(this)
+        }, "+"));
+    }
+} // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
 // console.log(<Home />)
@@ -621,15 +621,15 @@ function renderComponent(comp) {
      // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     // base = _render(renderer)
     base = (0, _diff.diffNode)(comp.base, renderer);
-    comp.base = base;
     if (comp.base) {
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
      // if (comp.base && comp.base.parentNode) {
-//   // replaceChild是只能用于子组件，因此我们必须使用parentNode
-//   // 将base赋值给comp.base
-//   comp.base.parentNode.replaceChild(base, comp.base)
-// }
+    //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+    //   // 将base赋值给comp.base
+    //   comp.base.parentNode.replaceChild(base, comp.base)
+    // }
+    comp.base = base;
 }
 function setComponentProps(comp, props) {
     if (!comp.base) {
@@ -707,7 +707,7 @@ function diffNode(dom, vnode) {
             if (dom.textContent !== vnode) dom.textContent = vnode;
         } else {
             out = document.createTextNode(vnode);
-            if (dom && dom.parentNode) dom.parentNode.replaceChild(out, dom);
+            if (dom && dom.parentNode) dom.parentNode.replaceNode(out, dom);
         }
         return out;
     }
@@ -715,7 +715,7 @@ function diffNode(dom, vnode) {
      // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childrens && vnode.childNodes.length > 0 || out.childNodes && out.childNodes.length > 0) diffChildren(out, vnode.childrens);
+    if (vnode.childrens && vnode.childrens.length > 0 || out.childNodes && out.childNodes.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
 }
@@ -733,7 +733,7 @@ function diffComponent(dom, vnode) {
             comp = null;
         } // 创建新组件
         comp = (0, _index.createComponent)(vnode.tag, vnode.attrs); // 设置组件属性
-        (0, _index.setComponentProps)(vnode.attrs); // 给当前挂载base
+        (0, _index.setComponentProps)(comp, vnode.attrs); // 给当前挂载base
         dom = comp.base;
     }
     return dom;
@@ -795,8 +795,7 @@ function diffAttribute(dom, vnode) {
     // 保存之前的dom所有的属性
     const oldAttrs = {
     };
-    const newAttrs = {
-    }; // dom是原有的节点对象，vnode是虚拟dom
+    const newAttrs = vnode.attrs; // dom是原有的节点对象，vnode是虚拟dom
     // 取出dom的属性
     const domAttrs = dom.attributes;
     console.log(domAttrs);
@@ -809,7 +808,7 @@ function diffAttribute(dom, vnode) {
     // 如果原来的属性跟新属性对比不在新属性中，则将其移除【属性值undefined就行】
     for(let key in oldAttrs)if (!(key in newAttrs)) (0, _index.setAttribute)(dom, key, undefined);
      // 如果旧的属性和新属性不同，就改变旧的
-    for(let key1 in oldAttrs)if (oldAttrs[key1] !== newAttrs[key1]) (0, _index.setAttribute)(dom, key1, newAttrs[key1]);
+    for(let key1 in newAttrs)if (oldAttrs[key1] !== newAttrs[key1]) (0, _index.setAttribute)(dom, key1, newAttrs[key1]);
 }
 
 },{"./index":"egPJa"}]},["2F9UW","7BQdY"], "7BQdY", "parcelRequire94c2")
