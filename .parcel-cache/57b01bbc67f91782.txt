@@ -1,4 +1,4 @@
-17676
+17678
 82C:\Users\Drama\source\react-source\jsx\node_modules\parcel-bundler\src\Resolver.js132819929698758241 0
 55C:\Users\Drama\source\react-source\jsx\node_modules\ret132819929663062352 1
 47C:\Users\Drama\source\react-source\jsx\index.js132823255718593023 0
@@ -35,7 +35,7 @@
 103C:\Users\Drama\source\react-source\jsx\node_modules\postcss-normalize-unicode\node_modules\browserslist132819929679298934 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\to-regex-range\README.md132819929662813012 0
 79C:\Users\Drama\source\react-source\jsx\node_modules\whatwg-mimetype\LICENSE.txt132819929662683359 0
-43C:\Users\Drama\source\react-source\jsx\dist132823255719650191 1
+43C:\Users\Drama\source\react-source\jsx\dist132823256336259747 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\es-to-primitive\Makefile132819929666523094 0
 100C:\Users\Drama\source\react-source\jsx\node_modules\caniuse-lite\data\features\permissions-policy.js132819929705879173 0
 87C:\Users\Drama\source\react-source\jsx\node_modules\babel-runtime\helpers\selfGlobal.js132819929687726395 0
@@ -1654,6 +1654,7 @@
 63C:\Users\Drama\source\react-source\jsx\node_modules\upath\build132819929670372795 1
 68C:\Users\Drama\source\react-source\jsx\node_modules\svgo\lib\svgo.js132819929692204424 0
 63C:\Users\Drama\source\react-source\jsx\node_modules\fs.realpath132819929668228533 1
+65C:\Users\Drama\source\react-source\jsx\dist\index.66788ac0.js.map132823256336239814 0
 97C:\Users\Drama\source\react-source\jsx\node_modules\static-extend\node_modules\is-data-descriptor132819929665585604 1
 73C:\Users\Drama\source\react-source\jsx\node_modules\rgba-regex\LICENSE.md132819929671529722 0
 100C:\Users\Drama\source\react-source\jsx\node_modules\regenerate-unicode-properties\Script\Ol_Chiki.js132819929698239163 0
@@ -4897,7 +4898,7 @@
 133C:\Users\Drama\source\react-source\jsx\node_modules\postcss-merge-rules\node_modules\postcss-selector-parser\dist\selectors\string.js132819929684126039 0
 99C:\Users\Drama\source\react-source\jsx\node_modules\cssstyle\lib\properties\webkitBorderEndColor.js132819929692254283 0
 66C:\Users\Drama\source\react-source\jsx\node_modules\lodash\pull.js132819929708591920 0
-54C:\Users\Drama\source\react-source\jsx\dist\index.html132823254944465652 0
+54C:\Users\Drama\source\react-source\jsx\dist\index.html132823256336180116 0
 68C:\Users\Drama\source\react-source\jsx\node_modules\stream-http\test132819929686739047 1
 76C:\Users\Drama\source\react-source\jsx\node_modules\core-js\es6\parse-int.js132819929713678336 0
 76C:\Users\Drama\source\react-source\jsx\node_modules\stream-http\test\browser132819929685831459 1
@@ -15157,6 +15158,7 @@
 101C:\Users\Drama\source\react-source\jsx\node_modules\core-js\fn\object\get-own-property-descriptors.js132819929712242151 0
 89C:\Users\Drama\source\react-source\jsx\node_modules\core-js\fn\object\get-prototype-of.js132819929712272073 0
 78C:\Users\Drama\source\react-source\jsx\node_modules\core-js\fn\object\index.js132819929712591220 0
+61C:\Users\Drama\source\react-source\jsx\dist\index.66788ac0.js132823256336180116 0
 82C:\Users\Drama\source\react-source\jsx\node_modules\core-js\fn\object\is-frozen.js132819929712950263 0
 87C:\Users\Drama\source\react-source\jsx\node_modules\@babel\types\lib\constants\index.js132819929691037544 0
 82C:\Users\Drama\source\react-source\jsx\node_modules\core-js\fn\object\is-sealed.js132819929712990156 0
