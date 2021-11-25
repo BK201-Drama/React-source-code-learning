@@ -2,7 +2,7 @@ import { setAttribute, setComponentProps, createComponent } from "./index"
 
 export function diff (dom, vnode, container) {
   // 对比节点的变化
-  const ret = diffNode(dom, vnode)
+  let ret = diffNode(dom, vnode)
   if (container) {
     container.appendChild(ret)
   }
@@ -24,7 +24,7 @@ export function diffNode (dom, vnode) {
     } else {
       out = document.createTextNode(vnode)
       if (dom && dom.parentNode) {
-        dom.parentNode.replaceNode(out, dom)
+        dom.parentNode.replaceChild(out, dom)
       }
     }
     return out
@@ -38,7 +38,7 @@ export function diffNode (dom, vnode) {
     out = document.createElement(vnode.tag)
   }
   // 比较子节点
-  if ((vnode.childrens && vnode.childNodes?.length > 0) || (out.childNodes && out.childNodes?.length > 0)) {
+  if ((vnode.childrens && vnode.childNodes.length > 0) || (out.childNodes && out.childNodes.length > 0)) {
     diffChildren(out, vnode.childrens)
   }
   diffAttribute(out, vnode)
@@ -126,7 +126,9 @@ function diffChildren (dom, vchildren) {
           }
         }
       }
+      // 对比
       child = diffNode(child, vchild)
+      // 更新dom
       const f = domChildren[i]
 
       if (child && child !== dom && child !== f) {

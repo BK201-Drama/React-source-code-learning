@@ -616,18 +616,20 @@ function createComponent(comp, props) {
 function renderComponent(comp) {
     // 定义组件内部的节点对象
     let base; // 拿到了元素
-    const renderer = comp.render; // console.log(renderer)
-    // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
+    const renderer = comp.render(); // console.log(renderer)
+    if (comp.base && componentWillUpdate) comp.componentWillUpdate();
+     // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     // base = _render(renderer)
     base = (0, _diff.diffNode)(comp.base, renderer);
+    comp.base = base;
     if (comp.base) {
-        if (comp.componentWillUpdate) comp.componentWillUpdate();
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
-    if (comp.base && comp.base.parentNode) // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    // 将base赋值给comp.base
-    comp.base.parentNode.replaceChild(base, comp.base);
-    comp.base = base;
+     // if (comp.base && comp.base.parentNode) {
+//   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+//   // 将base赋值给comp.base
+//   comp.base.parentNode.replaceChild(base, comp.base)
+// }
 }
 function setComponentProps(comp, props) {
     if (!comp.base) {
@@ -692,7 +694,7 @@ exports.diffNode = diffNode;
 var _index = require("./index");
 function diff(dom, vnode, container) {
     // 对比节点的变化
-    const ret = diffNode(dom, vnode);
+    let ret = diffNode(dom, vnode);
     if (container) container.appendChild(ret);
     return ret;
 }
@@ -705,7 +707,7 @@ function diffNode(dom, vnode) {
             if (dom.textContent !== vnode) dom.textContent = vnode;
         } else {
             out = document.createTextNode(vnode);
-            if (dom && dom.parentNode) dom.parentNode.replaceNode(out, dom);
+            if (dom && dom.parentNode) dom.parentNode.replaceChild(out, dom);
         }
         return out;
     }
@@ -713,7 +715,7 @@ function diffNode(dom, vnode) {
      // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childrens && vnode.childNodes?.length > 0 || out.childNodes && out.childNodes?.length > 0) diffChildren(out, vnode.childrens);
+    if (vnode.childrens && vnode.childNodes.length > 0 || out.childNodes && out.childNodes.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
 }
@@ -778,7 +780,8 @@ function diffChildren(dom, vchildren) {
                     break;
                 }
             }
-            child = diffNode(child, vchild);
+             // 对比
+            child = diffNode(child, vchild); // 更新dom
             const f = domChildren[i];
             if (child && child !== dom && child !== f) {
                 if (!f) dom.appendChild(child);

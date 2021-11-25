@@ -35,16 +35,19 @@ export function renderComponent (comp) {
   let base
 
   // 拿到了元素
-  const renderer = comp.render
+  const renderer = comp.render()
   // console.log(renderer)
+
+  if (comp.base && componentWillUpdate) {
+    comp.componentWillUpdate()
+  }
 
   // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
   // base = _render(renderer)
   base = diffNode(comp.base, renderer)
+  comp.base = base
+  
   if (comp.base) {
-    if (comp.componentWillUpdate) {
-      comp.componentWillUpdate()
-    }
     if (comp.componentDidUpdate) {
       comp.componentDidUpdate()
     }
@@ -52,12 +55,11 @@ export function renderComponent (comp) {
     comp.componentDidMount()
   }
 
-  if (comp.base && comp.base.parentNode) {
-    // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    // 将base赋值给comp.base
-    comp.base.parentNode.replaceChild(base, comp.base)
-  }
-  comp.base = base
+  // if (comp.base && comp.base.parentNode) {
+  //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+  //   // 将base赋值给comp.base
+  //   comp.base.parentNode.replaceChild(base, comp.base)
+  // }
 }
 
 export function setComponentProps (comp, props) {
