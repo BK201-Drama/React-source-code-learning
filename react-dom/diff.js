@@ -12,7 +12,7 @@ export function diff (dom, vnode, container) {
 
 export function diffNode (dom, vnode) {
   let out = dom
-  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '-'
+  if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
   if (typeof vnode === 'number') {
     vnode = String(vnode)
   }
@@ -29,17 +29,17 @@ export function diffNode (dom, vnode) {
     }
     return out
   }
-  if (typeof vnode.tag === 'function') {
+    if (typeof vnode.tag === 'function') {
 
-    out = diffComponent(dom, vnode)
-  }
+      out = diffComponent(dom, vnode)
+    }
 
   // 非文本dom节点
   if (!dom) {
     out = document.createElement(vnode.tag)
   }
   // 比较子节点
-  if (vnode.childrens && vnode.childrens.length > 0 || (out && out?.childNodes && out?.childNodes.length > 0)) {
+  if (vnode.childrens && vnode.childrens.length > 0 || (out && out.childNodes && out.childNodes.length > 0)) {
     diffChildren(out, vnode.childrens)
   }
 
@@ -66,6 +66,7 @@ function diffComponent (dom, vnode) {
 
     // 创建新组件
     comp = createComponent(vnode.tag, vnode.attrs)
+    console.log("diffComponent1", comp)
     // 设置组件属性
     setComponentProps(comp, vnode.attrs)
     // 给当前挂载base

@@ -482,7 +482,7 @@ function _interopRequireDefault(obj) {
 //     </div>
 //   )
 // }
-class Home_ extends _index2.default.Component {
+class Homes extends _index2.default.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -522,12 +522,13 @@ class Home_ extends _index2.default.Component {
 } // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
-console.log(_index2.default.createElement(Home_, null)); // console.log(element)
+var ele = _index2.default.createElement(Homes, null);
+console.log(ele.tag); // console.log(element)
 // const ele = 1
 // ReactDOM.render(ele, document.querySelector('#root'))
 // let element = 'str'
 // console.log(element);
-_index4.default.render(_index2.default.createElement(Home_, {
+_index4.default.render(_index2.default.createElement(Homes, {
     name: 'act'
 }), document.getElementById('root')); // console.log(ele)
 
@@ -622,18 +623,19 @@ function renderComponent(comp) {
     if (comp.base && componentWillUpdate) comp.componentWillUpdate();
      // renderer是获取了类组件内部的元素，但还是需要一层_render()函数解析，不然还是无法解析
     // base = _render(renderer)
-    console.log("comp", comp);
+    console.log("comp-", comp);
     console.log("renderer", renderer);
-    base = (0, _diff.diffNode)(comp.childNodes, renderer);
+    base = (0, _diff.diffNode)(comp.base, renderer);
+    comp.base = base;
+    console.log('base', base);
     if (comp.base) {
         if (comp.componentDidUpdate) comp.componentDidUpdate();
     } else if (comp.componentDidMount) comp.componentDidMount();
      // if (comp.base && comp.base.parentNode) {
-    //   // replaceChild是只能用于子组件，因此我们必须使用parentNode
-    //   // 将base赋值给comp.base
-    //   comp.base.parentNode.replaceChild(base, comp.base)
-    // }
-    comp.base = base;
+//   // replaceChild是只能用于子组件，因此我们必须使用parentNode
+//   // 将base赋值给comp.base
+//   comp.base.parentNode.replaceChild(base, comp.base)
+// }
 }
 function setComponentProps(comp, props) {
     if (!comp.base) {
@@ -704,7 +706,7 @@ function diff(dom, vnode, container) {
 }
 function diffNode(dom, vnode) {
     let out = dom;
-    if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '-';
+    if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
     if (typeof vnode === 'number') vnode = String(vnode);
     if (typeof vnode === 'string') {
         if (dom && dom.nodeType === 3) {
@@ -719,7 +721,7 @@ function diffNode(dom, vnode) {
      // 非文本dom节点
     if (!dom) out = document.createElement(vnode.tag);
      // 比较子节点
-    if (vnode.childrens && vnode.childrens.length > 0 || out && out?.childNodes && out?.childNodes.length > 0) diffChildren(out, vnode.childrens);
+    if (vnode.childrens && vnode.childrens.length > 0 || out && out.childNodes && out.childNodes.length > 0) diffChildren(out, vnode.childrens);
     diffAttribute(out, vnode);
     return out;
 }
@@ -736,7 +738,8 @@ function diffComponent(dom, vnode) {
             unmountComponent(comp); // 释放
             comp = null;
         } // 创建新组件
-        comp = (0, _index.createComponent)(vnode.tag, vnode.attrs); // 设置组件属性
+        comp = (0, _index.createComponent)(vnode.tag, vnode.attrs);
+        console.log("diffComponent1", comp); // 设置组件属性
         (0, _index.setComponentProps)(comp, vnode.attrs); // 给当前挂载base
         dom = comp.base;
     }

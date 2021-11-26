@@ -16,7 +16,7 @@ import ReactDOM from './react-dom/index'
 //   )
 // }
 
-class Home_ extends React.Component{
+class Homes extends React.Component{
   constructor (props) {
     super (props)
     this.state = {
@@ -65,7 +65,8 @@ class Home_ extends React.Component{
 // const ele = <Home_ name={"123123"}/>
 // console.log(ele.tag)
 // console.log(ele.tag)
-console.log(<Home_ />)
+var ele = <Homes />
+console.log(ele.tag)
 
 // console.log(element)
 
@@ -76,6 +77,6 @@ console.log(<Home_ />)
 // let element = 'str'
 // console.log(element);
 
-ReactDOM.render(<Home_ name={'act'}/>, document.getElementById('root'))
+ReactDOM.render(<Homes name={'act'}/>, document.getElementById('root'))
 
 // console.log(ele)
